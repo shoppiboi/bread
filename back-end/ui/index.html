@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            ToastWords
+        </title>
+        <h1>
+            ToastWords
+        </h1>
+        <h2 id="letters">
+            A B C
+        </h2>
+        <div id="rulesDiv"></div>
+        <script type="text/javascript">
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://127.0.0.1:8000/rules")
+            xhr.send();
+            xhr.responseType = "json";
+            xhr.onload = () => {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const data = xhr.response;
+
+                rules = data["rules"]
+                
+                let rulesDiv = document.getElementById("rulesDiv");
+                rulesDiv.innerHTML = ""
+                console.log(rules.length)
+
+                for (let i = 0; i < rules.length; i++) {
+
+
+                    let ruleElement = document.createElement("h3");
+                    let ruleText = `Rule ${i+1}. ${rules[i]}`;
+                    ruleElement.innerText = ruleText
+                    ruleElement.id = i
+                    rulesDiv.appendChild(ruleElement)
+                }
+
+            } else {
+                console.log(`Error: ${xhr.status}`);
+            }
+            };
+
+            // rules_body.appendChild()
+
+            // window.onload = codeAddress;
+        </script>
+        <!-- <script src="index.js"></script> -->
+    </head> 
+    <body> </body> 
+</html>
