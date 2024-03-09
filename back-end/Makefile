@@ -7,3 +7,7 @@
 b-run:
 	@	echo "running back-end..."
 	@	poetry run uvicorn src.main:app --reload
+
+format:
+	@ echo "formatting code..."
+	@ poetry run ruff format src

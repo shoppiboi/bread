@@ -7,4 +7,3 @@ class EnchantClient:
 
     def check_word(self, word: str) -> bool:
         return self.client.check(word)
-
