@@ -1,6 +1,5 @@
 import json
 import random
-from src.core.enchant import EnchantClient
 import pydantic
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,10 +14,10 @@ class Rule(pydantic.BaseModel):
 
 
 DEFAULT_RULES = [
-    "You must use the three letters provided.",
-    "The three letters must appear respectively.",
+    "Using the three given letters; form the longest word possible.",
+    "The letters must appear respectively.",
 ]
-SCORE_RULES = ["Come up with the longest word you can think of."]
+# SCORE_RULES = ["Come up with the longest word you can think of."]
 
 
 class GuessWordReq(pydantic.BaseModel):
@@ -46,12 +45,12 @@ app.add_middleware(
 )
 
 def get_rules() -> list[str]:
-    return DEFAULT_RULES + SCORE_RULES
+    return DEFAULT_RULES
 
 
 def get_letters() -> str:
     d = {}
-    with open("./src/letters.json") as f:
+    with open("letters.json") as f:
         d = json.loads(f.read())
 
     return random.choice(d["letters"]).upper()
@@ -89,9 +88,3 @@ async def game():
 
 
 # return {"game": "rules"}
-
-
-@app.post("/guess", status_code=201)
-async def guess(word_guess: str):
-    client = EnchantClient()
-    return client.check_word(word_guess)

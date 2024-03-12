@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  back-end:
+    build:
+        context: ./back-end
+        dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    environment:
+      DEBUG: 1
+      BACKEND_HOST: "0.0.0.0"
+      BACKEND_PORT: "8000"
+
+  front-end:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - back-end

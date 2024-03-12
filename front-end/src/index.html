@@ -34,7 +34,8 @@
 
                 for (let i = 0; i < rules.length; i++) {
                     let ruleElement = document.createElement("h3");
-                    let ruleText = `Rule ${i+1}. ${rules[i]}`;
+                    // let ruleText = `Rule ${i+1}. ${rules[i]}`;
+                    let ruleText = rules[i];
                     ruleElement.innerText = ruleText
                     ruleElement.id = i
                     rulesDiv.appendChild(ruleElement)
